@@ -1,2 +1,2 @@
-# cs231n-translation
-Translation of Stanford cs231n lectures 
+# cs231n-Korean translation
+Korean translation of Stanford cs231n lectures 
