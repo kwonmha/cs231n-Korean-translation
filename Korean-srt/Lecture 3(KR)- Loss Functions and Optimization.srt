@@ -15,8 +15,6 @@
 
 4
 00:00:17,520 --> 00:00:20,929
-of the lecture, there's a
-couple administrative things
 약간의 공지 사항이 있습니다.
 
 6
@@ -163,13 +161,10 @@ couple administrative things
 
 44
 00:02:16,359 --> 00:02:18,797
-So recall from last time in lecture two,
 지난 강의 2를 잠깐 떠올려보겠습니다.
 
 45
 00:02:18,797 --> 00:02:21,212
-we were really talking about
-the challenges of recognition
 인식의 어려움, 과제에 대해 얘기했고,
 
 46
@@ -227,335 +222,306 @@ k-근접 이웃 분류기에 대해 얘기했습니다.
 
 60
 00:02:56,109 --> 00:02:58,792
-We talked about the CIFAR-10
-data set where you can see
+우리는 CIFAR-10 데이터셋에 대해
+얘기했습니다. 
 
 61
 00:02:58,792 --> 00:03:01,624
-an example of these images
-on the upper left here,
+왼쪽 위에 CIFAR-10의
+이미지 예시들을 볼 수 있습니다.
 
 62
 00:03:01,624 --> 00:03:04,488
-where CIFAR-10 gives you
-these 10 different categories,
+CIFAR-10는 비행기 자동차 등등의
 
 63
 00:03:04,488 --> 00:03:06,587
-airplane, automobile, whatnot,
+10가지 카테고리를 갖고 있습니다.
 
 64
 00:03:06,587 --> 00:03:09,427
-and we talked about how the
-k-nearest neighbor classifier
+그리고 k-근접 이웃 분류기가 
+트레이닝 데이터를 이용해
 
 65
 00:03:09,427 --> 00:03:12,002
-can be used to learn decision boundaries
+어떻게 이 데이터 지점들을 클래스별로 나누는
 
 66
 00:03:12,002 --> 00:03:14,404
-to separate these data points into classes
+경계면을 학습하는데 이용될 수 있는지
 
 67
 00:03:14,404 --> 00:03:16,546
-based on the training data.
+얘기했습니다.
 
 68
 00:03:16,546 --> 00:03:19,399
-This also led us to a
-discussion of the idea of cross
+이를 통해 교차 검증에 대한 아이디어와
 
 69
 00:03:19,399 --> 00:03:21,755
-validation and setting
-hyper parameters by dividing
+데이터를 훈련용, 검증용, 테스트용 셋으로 나누어
 
 70
 00:03:21,755 --> 00:03:25,990
-your data into train,
-validation and test sets.
+하이퍼 파라미터들을 설정하는 법에 대해
+얘기해 보았습니다.
 
 71
 00:03:25,990 --> 00:03:28,008
-Then also recall last time
-we talked about linear
+그리고 지난 시간에 우리는
 
 72
 00:03:28,008 --> 00:03:30,857
-classification as the first
-sort of building block
+신경망으로 넘어가는 전 단계로
 
 73
 00:03:30,857 --> 00:03:33,210
-as we move toward neural networks.
+선형 분류기에 대해 얘기했습니다.
 
 74
 00:03:33,210 --> 00:03:35,526
-Recall that the linear
-classifier is an example
+선형 분류기는
 
 75
 00:03:35,526 --> 00:03:39,338
-of a parametric classifier
-where all of our knowledge
+훈련용 데이터에 대한 우리의 모든 지식이 
 
 76
 00:03:39,338 --> 00:03:41,328
-about the training data gets summarized
+트레이닝 과정에서 정해지는 
 
 77
 00:03:41,328 --> 00:03:44,146
-into this parameter matrix W that is set
+파라미터 행렬 W에 집약되는
 
 78
 00:03:44,146 --> 00:03:46,244
-during the process of training.
+parametric 분류기 중 하나입니다.
 
 79
 00:03:46,244 --> 00:03:49,248
-And this linear classifier
-recall is super simple,
+그리고 이런 선형 분류기는 매우 단순합니다.
 
 80
 00:03:49,248 --> 00:03:51,115
-where we're going to take
-the image and stretch it out
+그리고 우리는 이미지들을 늘려서
 
 81
 00:03:51,115 --> 00:03:52,610
-into a long vector.
+1차원의 긴 벡터로 만들 것입니다.
 
 82
 00:03:52,610 --> 00:03:55,774
-So here the image is x and
-then we take that image
+여기 32 * 32 * 3 형태의
 
 83
 00:03:55,774 --> 00:03:59,095
-which might be 32 by 32 by
-3 pixels, stretch it out
+이미지 x를 늘려서
 
 84
 00:03:59,095 --> 00:04:02,051
-into a long column vector of 32 times 32
+32 * 32 * 3 크기의 긴 열 벡터로
 
 85
 00:04:02,051 --> 00:04:03,718
-times 3 entries,
+만듭니다.
 
 86
 00:04:05,144 --> 00:04:07,203
-where the 32 and 32 are
-the height and width,
+32와 32는 높이와 너비이고
 
 87
 00:04:07,203 --> 00:04:09,023
-and the 3 give you
-the three color channels,
+3은 빨강, 파랑, 초록의 3가지
 
 88
 00:04:09,023 --> 00:04:10,522
-red, green, blue.
+채널입니다.
 
 89
 00:04:10,522 --> 00:04:14,361
-Then there exists some parameter matrix, W
+그리고 매개변수 행렬 W는,
 
 90
 00:04:14,361 --> 00:04:16,481
-which will take this long column vector
+이미지를 나타내는 이 긴 열벡터를
 
 91
 00:04:16,481 --> 00:04:19,317
-representing the image
-pixels, and convert this
+CIFAR-10의 10개 클래스에 대한
 
 92
 00:04:19,317 --> 00:04:21,642
-and give you 10 numbers giving scores
+각각의 점수를 나타내는 
+10개 숫자를 갖고 있는 형태로
 
 93
 00:04:21,642 --> 00:04:25,187
-for each of the 10 classes
-in the case of CIFAR-10.
+변환시킵니다.
 
 94
 00:04:25,187 --> 00:04:26,916
-Where we kind of had this interpretation
+그래서 우리는 이런 식으로 해석할 수 있습니다.
 
 95
 00:04:26,916 --> 00:04:30,417
-where larger values of those scores,
+좀 더 큰 값을 갖는다면,
 
 96
 00:04:30,417 --> 00:04:33,147
-so a larger value for the cat
-class means the classifier
+고양이 클래스에 높은 값을 갖게 된다면
 
 97
 00:04:33,147 --> 00:04:35,681
-thinks that the cat is
-more likely for that image,
+분류기가 그 그림을 고양이일 가능성이
+높다고 판단한다는 것을 의미하고,
 
 98
 00:04:35,681 --> 00:04:38,350
-and lower values for
-maybe the dog or car class
+개나 자동차에 낮은 값을 갖는다는 것은
 
 99
 00:04:38,350 --> 00:04:41,353
-indicate lower probabilities
-of those classes being present
+그 클래스들이 이미지에 있을 가능성이
+낮다는 것을
 
 100
 00:04:41,353 --> 00:04:43,243
-in the image.
+의미합니다.
 
 101
 00:04:43,243 --> 00:04:46,564
 Also, so I think this point
 was a little bit unclear
+그리고, 약간 불명확한 부분이
+있었다고 생각하는데,
 
 102
 00:04:46,564 --> 00:04:50,209
-last time that linear classification
-has this interpretation
+지난 번에 선형 분류기가
+각 클래스에 대한 특정 형태(template)을
 
 103
 00:04:50,209 --> 00:04:52,425
-as learning templates per class,
+배운다고 해석했습니다.
 
 104
 00:04:52,425 --> 00:04:55,128
-where if you look at the
-diagram on the lower left,
+왼쪽 아래 그림을 보면
 
 105
 00:04:55,128 --> 00:04:58,299
-you think that, so for
-every pixel in the image,
+이미지의 모든 픽셀과
 
 106
 00:04:58,299 --> 00:05:00,411
-and for every one of our 10 classes,
+10개 클래스들에 대해
 
 107
 00:05:00,411 --> 00:05:03,244
-there exists some entry in this matrix W,
+어떤 픽셀이 어떤 클래스가 되도록
+영향을 주는지를
 
 108
 00:05:03,244 --> 00:05:07,354
-telling us how much does that
-pixel influence that class.
+행렬 W를 통해 알 수 있습니다.
 
 109
 00:05:07,354 --> 00:05:10,416
-So that means that each of
-these rows in the matrix W
+이를 통해 행렬 W의 각 행들은
 
 110
 00:05:10,416 --> 00:05:13,212
-ends up corresponding to
-a template for the class.
+그 클래스의 템플릿에 해당한다는 것을
+알 수 있습니다.
 
 111
 00:05:13,212 --> 00:05:15,479
-And if we take those rows and unravel,
+그리고 만약 각 행들을 풀어본다면
 
 112
 00:05:15,479 --> 00:05:17,724
-so each of those rows again corresponds
+각 행들은 이미지의 픽셀 값과
 
 113
 00:05:17,724 --> 00:05:20,540
-to a weighting between the values of,
+그 클래스의 픽셀 값들 사이의
 
 114
 00:05:20,540 --> 00:05:23,351
-between the pixel values of
-the image and that class,
+가중치(유사도)에 해당합니다.
 
 115
 00:05:23,351 --> 00:05:26,246
-so if we take that row and
-unravel it back into an image,
+그래서 각 행들을 풀어서 이미지 형태로 만들면
 
 116
 00:05:26,246 --> 00:05:28,787
-then we can visualize the
-learned template for each
+각 클래스들에 대한 학습한 템플릿을
 
 117
 00:05:28,787 --> 00:05:30,700
-of these classes.
+시각화할 수 있습니다.
 
 118
 00:05:30,700 --> 00:05:33,324
-We also had this interpretation
-of linear classification
+또한 우리는 선형 분류기가
 
 119
 00:05:33,324 --> 00:05:36,199
-as learning linear decision
-boundaries between pixels
+고차원 공간 상의 픽셀들 사이의
+결정 경계를 학습한다고 해석할 수 있습니다.
 
 120
 00:05:36,199 --> 00:05:38,588
-in some high dimensional
-space where the dimensions
+공간상의 그 차원들은
 
 121
 00:05:38,588 --> 00:05:41,611
-of the space correspond
-to the values of the pixel
+이미지 상의 각 픽셀에 대한
 
 122
 00:05:41,611 --> 00:05:44,574
-intensity values of the image.
+Intensity 값을 의미합니다.
 
 123
 00:05:44,574 --> 00:05:48,371
-So this is kind of where
-we left off last time.
+지난 시간에 우리는 여기까지 했습니다.
 
 124
 00:05:48,371 --> 00:05:51,615
-And so where we kind of
-stopped, where we ended up last
+지난 시간까지 우리는
 
 125
 00:05:51,615 --> 00:05:54,941
-time is we got this idea
-of a linear classifier,
+선형 분류기의 개념에 대해 얘기했고,
 
 126
 00:05:54,941 --> 00:05:58,354
-and we didn't talk about how
-to actually choose the W.
+실제로 어떻게 W를 정하는지,
 
 127
 00:05:58,354 --> 00:06:00,189
-How to actually use the training data
+어떻게 실제로 트레이닝 데이터를 이용해서
 
 128
 00:06:00,189 --> 00:06:03,428
-to determine which value
-of W should be best.
+최고의 W를 구할 지 얘기하진 않았습니다.
 
 129
 00:06:03,428 --> 00:06:05,256
-So kind of where we stopped off at
+W의 값을 잘 정하면 W를 이용해서
 
 130
 00:06:05,256 --> 00:06:09,092
-is that for some setting
-of W, we can use this W
+어떤 이미지를 갖고도 10개의 클래스에
+대한 점수를 얻을 수 있다는
 
 131
 00:06:09,092 --> 00:06:12,868
-to come up with 10 with our
-class scores for any image.
+점까지 배웠습니다.
 
 132
 00:06:12,868 --> 00:06:16,397
